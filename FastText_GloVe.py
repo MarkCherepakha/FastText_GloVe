@@ -27,9 +27,9 @@ train_sentences, train_labels = prepare_data(train_data)
 test_sentences, test_labels = prepare_data(test_data)
 
 upos_tags = {
-    'ADJ': 0, 'ADP': 1, 'ADV': 2, 'AUX': 3, 'CCONJ': 4, 'DET': 5, 'INTJ': 6, 
-    'NOUN': 7, 'NUM': 8, 'PART': 9, 'PRON': 10, 'PROPN': 11, 'PUNCT': 12, 
-    'SCONJ': 13, 'SYM': 14, 'VERB': 15, 'X': 16
+    0: 'ADJ', 1: 'ADP', 2: 'ADV', 3: 'AUX', 4: 'CCONJ', 5: 'DET', 6: 'INTJ', 
+    7: 'NOUN', 8: 'NUM', 9: 'PART', 10: 'PRON', 11: 'PROPN', 12: 'PUNCT', 
+    13: 'SCONJ', 14: 'SYM', 15: 'VERB', 16: 'X'
 }
 
 def train_word2vec(sentences, sg):
@@ -71,8 +71,9 @@ print(f"Размер train_labels: {len(train_labels)}")
 print(f"Размер test_embeddings_w2v_skipgram: {len(test_embeddings_w2v_skipgram)}")
 print(f"Размер test_labels: {len(test_labels)}")
 
-train_labels_flat = [upos_tags.get(tag, 16) for sent in train_labels for tag in sent]
-test_labels_flat = [upos_tags.get(tag, 16) for sent in test_labels for tag in sent]
+train_labels_flat = [upos_tags[tag] for sent in train_labels for tag in sent if tag in upos_tags]
+test_labels_flat = [upos_tags[tag] for sent in test_labels for tag in sent if tag in upos_tags]
+
 
 print(f"Размер train_labels_flat: {len(train_labels_flat)}")
 print(f"Размер test_labels_flat: {len(test_labels_flat)}")
